@@ -1,14 +1,16 @@
 package com.github.abvdasker.sudoku
 
+import java.io.FileReader
+import java.io.FileWriter
+import java.io.File
+import kotlin.system.exitProcess
+
+import com.opencsv.CSVReader
+import com.opencsv.CSVWriter
+
 import com.github.abvdasker.sudoku.cli.Parser
 import com.github.abvdasker.sudoku.models.Board
 import com.github.abvdasker.sudoku.models.BoardInputValidator
-import com.opencsv.CSVReader
-import com.opencsv.CSVWriter
-import java.io.File
-import java.io.FileReader
-import java.io.FileWriter
-import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     val parser = Parser()
@@ -17,6 +19,16 @@ fun main(args: Array<String>) {
     val csvFile = File(parser.input)
     if (!csvFile.exists()) {
         println("Input CSV file ${parser.input} does not exist")
+        exitProcess(1)
+    }
+    if (!csvFile.isFile) {
+        println("Input CSV file ${parser.input} is not a file")
+        exitProcess(1)
+    }
+
+    val outputCSVFile = File(parser.output)
+    if (outputCSVFile.isDirectory()) {
+        println("Output CSV file ${parser.output} is a directory")
         exitProcess(1)
     }
 
@@ -28,7 +40,6 @@ fun main(args: Array<String>) {
     board.solve()
 
     val solvedCSVLines = board.toCSVLines()
-    val outputCSVFile = File(parser.output)
     writeLinesToCSVFile(solvedCSVLines, outputCSVFile)
 }
 
@@ -42,7 +53,8 @@ fun readLinesFromCSVFile(csvFile: File): List<Array<String?>> {
 fun writeLinesToCSVFile(solvedCSVLines: List<Array<String?>>, outputCSVFile: File) {
     val outputCSVFileWriter = FileWriter(outputCSVFile)
     val csvWriter = CSVWriter(outputCSVFileWriter)
-    csvWriter.writeAll(solvedCSVLines)
+    csvWriter.writeAll(solvedCSVLines, false)
+    csvWriter.flush()
 }
 
 fun adaptCSVLinesToBoardInput(csvLines: List<Array<String?>>): List<List<Int?>> {
