@@ -1,18 +1,21 @@
 package com.github.abvdasker.sudoku.models
 
-class Cell(val initial: Int?) {
+class Cell(data: Int?) {
     var inferred: Int
+    var wasSet: Boolean
 
     init {
-        inferred = if (initial != null) {
-            initial
+        if (data != null && data != 0) {
+            wasSet = true
+            inferred = data
         } else {
-            0
+            wasSet = false
+            inferred = 0
         }
     }
 
     fun next(direction: Direction): Boolean {
-        if (initial != null) {
+        if (wasSet) {
             if (direction == Direction.FORWARD) {
                 return true
             }
