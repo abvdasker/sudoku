@@ -6,7 +6,7 @@ import com.github.abvdasker.sudoku.models.Cell
 import com.github.abvdasker.sudoku.models.Direction
 
 class Board(input: List<List<Int>>) {
-    val backing: ArrayList<ArrayList<Cell>> = ArrayList()
+    private val backing: ArrayList<ArrayList<Cell>> = ArrayList()
 
     init {
         input.forEach { row ->
