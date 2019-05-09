@@ -75,7 +75,8 @@ class BoardTest {
 """.trimIndent()
     }
 
-    @Test fun testSolve() {
+    @Test
+    fun testSolve() {
         val board = Board(TEST_BOARD)
 
         board.solve()
@@ -83,7 +84,8 @@ class BoardTest {
         assertEquals(EXPECTED_OUTPUT, board.toString())
     }
 
-    @Test fun testSolve_invalid() {
+    @Test
+    fun testSolve_invalid() {
         val board = Board(INVALID_TEST_BOARD)
 
         assertFailsWith(InvalidInputException::class, "") {
@@ -91,7 +93,8 @@ class BoardTest {
         }
     }
 
-    @Test fun testSolve_impossible() {
+    @Test
+    fun testSolve_impossible() {
         val board = Board(IMPOSSIBLE_TEST_BOARD)
 
         assertFailsWith(UnsolvableException::class, "") {
@@ -99,7 +102,8 @@ class BoardTest {
         }
     }
 
-    @Test fun testToCSVLines() {
+    @Test
+    fun testToCSVLines() {
         val board = Board(TEST_BOARD)
 
         val csvLines = board.toCSVLines()

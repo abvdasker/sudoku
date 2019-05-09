@@ -11,8 +11,6 @@ import com.opencsv.CSVWriter
 import com.github.abvdasker.sudoku.cli.Parser
 import java.time.Duration
 import java.time.Instant
-import java.time.Period
-import java.util.*
 import kotlin.collections.ArrayList
 
 fun main(args: Array<String>) {

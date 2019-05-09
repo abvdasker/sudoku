@@ -12,7 +12,8 @@ class AppTest {
         const val SAMPLE_SOLUTION_FILE_PATH = "src/test/resources/sample_1_solved.csv"
     }
 
-    @Test fun testMain() {
+    @Test
+    fun testMain() {
         val outputFile = File.createTempFile("sudoku-test", ".csv")
         val outputFilepath = outputFile.absolutePath
         val args = arrayOf("-i", SAMPLE_FILE_PATH, "-o", outputFilepath)

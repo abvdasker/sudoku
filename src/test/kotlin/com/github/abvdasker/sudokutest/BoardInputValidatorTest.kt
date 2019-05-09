@@ -1,14 +1,15 @@
 package com.github.abvdasker.sudokutest
 
 import kotlin.test.Test
-
-import com.github.abvdasker.sudoku.BoardInputValidator
-import com.github.abvdasker.sudoku.errors.InvalidInputException
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
+import com.github.abvdasker.sudoku.BoardInputValidator
+import com.github.abvdasker.sudoku.errors.InvalidInputException
+
 class BoardInputValidatorTest {
-    @Test fun testValidate_noRows() {
+    @Test
+    fun testValidate_noRows() {
         val input = ArrayList<ArrayList<Int?>>()
 
         assertFailsWith(InvalidInputException::class, "") {
@@ -16,7 +17,8 @@ class BoardInputValidatorTest {
         }
     }
 
-    @Test fun testValidate_tooManyRows() {
+    @Test
+    fun testValidate_tooManyRows() {
         val input = ArrayList<ArrayList<Int?>>()
         for (i in 0 until 10) {
             input.add(ArrayList())
@@ -27,7 +29,8 @@ class BoardInputValidatorTest {
         }
     }
 
-    @Test fun testValidate_notEnoughColumns() {
+    @Test
+    fun testValidate_notEnoughColumns() {
         val input = ArrayList<ArrayList<Int?>>()
         for (i in 0 until 9) {
             input.add(ArrayList())
@@ -38,7 +41,8 @@ class BoardInputValidatorTest {
         }
     }
 
-    @Test fun testValidate_tooManyColumns() {
+    @Test
+    fun testValidate_tooManyColumns() {
         val input = ArrayList<ArrayList<Int?>>()
         for (i in 0 until 9) {
             val row = ArrayList<Int?>()
@@ -53,7 +57,8 @@ class BoardInputValidatorTest {
         }
     }
 
-    @Test fun testValidate() {
+    @Test
+    fun testValidate() {
         val input = ArrayList<ArrayList<Int>>()
         for (i in 0 until 9) {
             val row = ArrayList<Int>()
