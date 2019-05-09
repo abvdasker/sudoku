@@ -1,4 +1,5 @@
-package com.github.abvdasker.models
+package com.github.abvdasker.sudoku.models
+
 
 enum class Direction {
     FORWARD,

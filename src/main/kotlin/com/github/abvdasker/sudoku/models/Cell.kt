@@ -1,4 +1,4 @@
-package com.github.abvdasker.models
+package com.github.abvdasker.sudoku.models
 
 class Cell(val initial: Int?) {
     var inferred: Int

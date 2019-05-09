@@ -1,4 +1,4 @@
-package com.github.abvdasker.models
+package com.github.abvdasker.sudoku.models
 
 class Board(input: Array<Array<Int?>>) {
     private val backing: ArrayList<ArrayList<Cell>> = ArrayList()

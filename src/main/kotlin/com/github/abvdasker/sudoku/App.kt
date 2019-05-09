@@ -1,6 +1,6 @@
-package com.github.abvdasker
+package com.github.abvdasker.sudoku
 
-import com.github.abvdasker.models.Board
+import com.github.abvdasker.sudoku.models.Board
 
 val TEST_BOARD = arrayOf(
         arrayOf(null, null, 6, 8, 4, 3, 5, null, null),
