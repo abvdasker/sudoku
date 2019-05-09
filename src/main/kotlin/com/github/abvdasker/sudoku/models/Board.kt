@@ -1,6 +1,6 @@
 package com.github.abvdasker.sudoku.models
 
-class Board(input: Array<Array<Int?>>) {
+class Board(input: List<List<Int>>) {
     private val backing: ArrayList<ArrayList<Cell>> = ArrayList()
 
     init {
@@ -26,6 +26,19 @@ class Board(input: Array<Array<Int?>>) {
             output.append(extraRowString)
         }
         return output.toString()
+    }
+
+    fun toCSVLines(): List<Array<String?>> {
+        val result = ArrayList<Array<String?>>()
+        backing.forEach { row ->
+            val convertedRow = Array<String?>(row.size) { null }
+
+            row.forEachIndexed { i, cell ->
+                convertedRow[i] = cell.getInferredString()
+            }
+            result.add(convertedRow)
+        }
+        return result
     }
 
     fun solve() {

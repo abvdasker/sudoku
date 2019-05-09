@@ -1,24 +1,69 @@
 package com.github.abvdasker.sudoku
 
+import com.github.abvdasker.sudoku.cli.Parser
 import com.github.abvdasker.sudoku.models.Board
-
-val TEST_BOARD = arrayOf(
-        arrayOf(null, null, 6, 8, 4, 3, 5, null, null),
-        arrayOf(7, 4, null, 1, 9, null, null, null, null),
-        arrayOf(null, null, null, 7, null, null, null, null, null),
-        arrayOf(null, null, 4, null, 5, 6, 1, 8, null),
-        arrayOf(null, 3, null, null, null, null, null, 5, null),
-        arrayOf(null, 9, 5, 3, 2, null, 4, null, null),
-        arrayOf(null, null, null, null, null, 8, null, null, null),
-        arrayOf(null, null, null, null, 1, 4, null, 3, 8),
-        arrayOf(null, null, 8, 2, 3, 9, 7, null, null)
-)
+import com.github.abvdasker.sudoku.models.BoardInputValidator
+import com.opencsv.CSVReader
+import com.opencsv.CSVWriter
+import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
+import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
-    val board = Board(TEST_BOARD)
-    println("UNSOLVED:")
-    println(board)
+    val parser = Parser()
+    parser.main(args)
+
+    val csvFile = File(parser.input)
+    if (!csvFile.exists()) {
+        println("Input CSV file ${parser.input} does not exist")
+        exitProcess(1)
+    }
+
+    val csvLines = readLinesFromCSVFile(csvFile)
+    val boardInput = adaptCSVLinesToBoardInput(csvLines)
+    val validatedBoardInput = BoardInputValidator(boardInput).validate()
+    val board = Board(validatedBoardInput)
+
     board.solve()
-    println("SOLVED:")
-    println(board)
+
+    val solvedCSVLines = board.toCSVLines()
+    val outputCSVFile = File(parser.output)
+    writeLinesToCSVFile(solvedCSVLines, outputCSVFile)
+}
+
+fun readLinesFromCSVFile(csvFile: File): List<Array<String?>> {
+    val fileReader = FileReader(csvFile)
+    val csvReader = CSVReader(fileReader)
+    val csvLines = csvReader.readAll()
+    return csvLines
+}
+
+fun writeLinesToCSVFile(solvedCSVLines: List<Array<String?>>, outputCSVFile: File) {
+    val outputCSVFileWriter = FileWriter(outputCSVFile)
+    val csvWriter = CSVWriter(outputCSVFileWriter)
+    csvWriter.writeAll(solvedCSVLines)
+}
+
+fun adaptCSVLinesToBoardInput(csvLines: List<Array<String?>>): List<List<Int?>> {
+    val boardInput = ArrayList<ArrayList<Int?>>()
+    csvLines.forEachIndexed { rowIdx, row ->
+        val parsedRow = ArrayList<Int?>()
+
+        row.forEachIndexed { colIdx, value ->
+            var correctedValue = value
+            if (correctedValue == null) {
+                correctedValue = "0"
+            }
+
+            try {
+                val parsedValue = Integer.parseInt(correctedValue)
+                parsedRow.add(parsedValue)
+            } catch (err: NumberFormatException) {
+                throw RuntimeException("value $value at $rowIdx, $colIdx is not a number", err)
+            }
+        }
+        boardInput.add(parsedRow)
+    }
+    return boardInput
 }

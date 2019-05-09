@@ -5,19 +5,20 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class BoardTest {
-    val TEST_BOARD = arrayOf(
-            arrayOf(null, null, 6, 8, 4, 3, 5, null, null),
-            arrayOf(7, 4, null, 1, 9, null, null, null, null),
-            arrayOf(null, null, null, 7, null, null, null, null, null),
-            arrayOf(null, null, 4, null, 5, 6, 1, 8, null),
-            arrayOf(null, 3, null, null, null, null, null, 5, null),
-            arrayOf(null, 9, 5, 3, 2, null, 4, null, null),
-            arrayOf(null, null, null, null, null, 8, null, null, null),
-            arrayOf(null, null, null, null, 1, 4, null, 3, 8),
-            arrayOf(null, null, 8, 2, 3, 9, 7, null, null)
-    )
+    companion object {
+        val TEST_BOARD = listOf(
+                listOf(0, 0, 6, 8, 4, 3, 5, 0, 0),
+                listOf(7, 4, 0, 1, 9, 0, 0, 0, 0),
+                listOf(0, 0, 0, 7, 0, 0, 0, 0, 0),
+                listOf(0, 0, 4, 0, 5, 6, 1, 8, 0),
+                listOf(0, 3, 0, 0, 0, 0, 0, 5, 0),
+                listOf(0, 9, 5, 3, 2, 0, 4, 0, 0),
+                listOf(0, 0, 0, 0, 0, 8, 0, 0, 0),
+                listOf(0, 0, 0, 0, 1, 4, 0, 3, 8),
+                listOf(0, 0, 8, 2, 3, 9, 7, 0, 0)
+        )
 
-    val EXPECTED_OUTPUT = """
+        val EXPECTED_OUTPUT = """
 1 2 6 | 8 4 3 | 5 7 9
 7 4 3 | 1 9 5 | 8 2 6
 5 8 9 | 7 6 2 | 3 4 1
@@ -31,6 +32,7 @@ class BoardTest {
 4 6 8 | 2 3 9 | 7 1 5
 
 """.trimIndent()
+    }
 
     @Test fun testSolve() {
         val board = Board(TEST_BOARD)

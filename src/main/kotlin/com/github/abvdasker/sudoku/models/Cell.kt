@@ -11,8 +11,6 @@ class Cell(val initial: Int?) {
         }
     }
 
-    constructor(): this(null)
-
     fun next(direction: Direction): Boolean {
         if (initial != null) {
             if (direction == Direction.FORWARD) {
@@ -30,10 +28,7 @@ class Cell(val initial: Int?) {
         return true
     }
 
-    fun reset() {
-        if (initial == null) {
-            return
-        }
-        inferred = 0
+    fun getInferredString(): String {
+        return inferred.toString()
     }
 }
