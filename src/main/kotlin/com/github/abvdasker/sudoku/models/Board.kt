@@ -4,11 +4,9 @@ class Board(input: List<List<Int>>) {
     private val backing: ArrayList<ArrayList<Cell>> = ArrayList()
 
     init {
-        for (rowIdx in 0 until input.size) {
-            val row = input.get(rowIdx)
+        input.forEach { row ->
             val backingRow = ArrayList<Cell>()
-            for (colIdx in 0 until row.size) {
-                val cellValue = row[colIdx]
+            row.forEach { cellValue ->
                 val cell = Cell(cellValue)
                 backingRow.add(cell)
             }
