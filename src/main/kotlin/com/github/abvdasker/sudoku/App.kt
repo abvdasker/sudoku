@@ -9,6 +9,11 @@ import com.opencsv.CSVReader
 import com.opencsv.CSVWriter
 
 import com.github.abvdasker.sudoku.cli.Parser
+import java.time.Duration
+import java.time.Instant
+import java.time.Period
+import java.util.*
+import kotlin.collections.ArrayList
 
 fun main(args: Array<String>) {
     val parser = Parser()
@@ -35,7 +40,11 @@ fun main(args: Array<String>) {
     val validatedBoardInput = BoardInputValidator(boardInput).validate()
     val board = Board(validatedBoardInput)
 
-    board.solve()
+    println("Solving...")
+    val duration = timed {
+        board.solve()
+    }
+    println("Solved in ${duration.toMillis()}ms!")
 
     val solvedCSVLines = board.toCSVLines()
     writeLinesToCSVFile(solvedCSVLines, outputCSVFile)
@@ -61,10 +70,7 @@ fun adaptCSVLinesToBoardInput(csvLines: List<Array<String?>>): List<List<Int?>> 
         val parsedRow = ArrayList<Int?>()
 
         row.forEachIndexed { colIdx, value ->
-            var correctedValue = value
-            if (correctedValue == null) {
-                correctedValue = "0"
-            }
+            val correctedValue = value ?: "0"
 
             try {
                 val parsedValue = Integer.parseInt(correctedValue)
@@ -76,4 +82,11 @@ fun adaptCSVLinesToBoardInput(csvLines: List<Array<String?>>): List<List<Int?>> 
         boardInput.add(parsedRow)
     }
     return boardInput
+}
+
+fun timed(run: () -> Unit): Duration {
+    val start = Instant.now()
+    run()
+    val end = Instant.now()
+    return Duration.between(start, end)
 }
