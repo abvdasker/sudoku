@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-version = "1.0.0"
+version = "0.1.0"
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin on the JVM.
