@@ -23,18 +23,6 @@ class BoardTest {
                 listOf(0, 0, 8, 2, 3, 9, 7, 0, 0)
         )
 
-        val SOLVED_TEST_BOARD = listOf(
-                listOf(1,2,6,8,4,3,5,7,9),
-                listOf(7,4,3,1,9,5,8,2,6),
-                listOf(5,8,9,7,6,2,3,4,1),
-                listOf(2,7,4,9,5,6,1,8,3),
-                listOf(6,3,1,4,8,7,9,5,2),
-                listOf(8,9,5,3,2,1,4,6,7),
-                listOf(3,1,2,5,7,8,6,9,4),
-                listOf(9,5,7,6,1,4,2,3,8),
-                listOf(4,6,8,2,3,9,7,1,5)
-        )
-
         val INVALID_TEST_BOARD = listOf(
                 listOf(6, 0, 6, 8, 4, 3, 5, 0, 0), // <- extra 6 here makes this impossible
                 listOf(7, 4, 0, 1, 9, 0, 0, 0, 0),
@@ -110,7 +98,6 @@ class BoardTest {
             board.solve()
         }
     }
-
 
     @Test fun testToCSVLines() {
         val board = Board(TEST_BOARD)

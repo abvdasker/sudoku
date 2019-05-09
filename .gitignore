@@ -7,4 +7,3 @@ build
 .idea
 *.iml
 out
-*.csv
