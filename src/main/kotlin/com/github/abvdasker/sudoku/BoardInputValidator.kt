@@ -1,4 +1,4 @@
-package com.github.abvdasker.sudoku.models
+package com.github.abvdasker.sudoku
 
 import com.github.abvdasker.sudoku.errors.InvalidInputException
 

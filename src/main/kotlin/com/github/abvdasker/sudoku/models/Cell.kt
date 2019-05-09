@@ -1,5 +1,7 @@
 package com.github.abvdasker.sudoku.models
 
+import com.github.abvdasker.sudoku.Board
+
 class Cell(data: Int?) {
     var inferred: Int
     var wasSet: Boolean

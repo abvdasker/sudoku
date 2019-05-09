@@ -1,7 +1,12 @@
-package com.github.abvdasker.sudoku.models
+package com.github.abvdasker.sudoku
+
+import com.github.abvdasker.sudoku.errors.InvalidInputException
+import com.github.abvdasker.sudoku.errors.UnsolvableException
+import com.github.abvdasker.sudoku.models.Cell
+import com.github.abvdasker.sudoku.models.Direction
 
 class Board(input: List<List<Int>>) {
-    private val backing: ArrayList<ArrayList<Cell>> = ArrayList()
+    val backing: ArrayList<ArrayList<Cell>> = ArrayList()
 
     init {
         input.forEach { row ->
@@ -46,6 +51,7 @@ class Board(input: List<List<Int>>) {
 
         while (true) {
             val current = backing[rowIdx][colIdx]
+            //println("\ndirection: $direction\nrowIdx: $rowIdx\ncolIdx: $colIdx\ncurrent: ${current.inferred}\n")
             if (current.next(direction)) {
                 direction = Direction.FORWARD
                 val isValid = isValid(current, rowIdx, colIdx)
@@ -57,12 +63,14 @@ class Board(input: List<List<Int>>) {
                     }
                     rowIdx = tmpRowIdx
                     colIdx = tmpColIdx
+                } else if (current.wasSet) {
+                    throw InvalidInputException("input board is not valid sudoku")
                 }
             } else {
                 direction = Direction.BACKWARD
                 val (tmpRowIdx, tmpColIdx, impossible) = moveBackward(rowIdx, colIdx)
                 if (impossible) {
-                    throw RuntimeException("board is unsolvable")
+                    throw UnsolvableException("board is unsolvable")
                 }
                 rowIdx = tmpRowIdx
                 colIdx = tmpColIdx

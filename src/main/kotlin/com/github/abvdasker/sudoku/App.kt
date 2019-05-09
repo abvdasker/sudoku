@@ -9,8 +9,6 @@ import com.opencsv.CSVReader
 import com.opencsv.CSVWriter
 
 import com.github.abvdasker.sudoku.cli.Parser
-import com.github.abvdasker.sudoku.models.Board
-import com.github.abvdasker.sudoku.models.BoardInputValidator
 
 fun main(args: Array<String>) {
     val parser = Parser()
